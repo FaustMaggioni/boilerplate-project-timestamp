@@ -5,6 +5,9 @@
 var express = require('express');
 var app = express();
 
+const months = require('./months');
+const weekdays = require('./weekdays');
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -24,9 +27,29 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/:date", function (req,res) {
+  const datestring = req.params.date;
+  const date = new Date(datestring);
+  console.log(date.getDay())
+  const unix = date.getTime();
+  const utc = `${weekdays.get(date.getDay())}, ${date.getDate()+1} ${months.get(date.getMonth())} ${date.getFullYear()} 00:00:00 GMT`;
+
+  res.json({unix: unix, utc:utc})
+})
+
+function checkDate(date_string){
+
+}
+
+function dateToUTC(date){
+
+}
+
+
+
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(5000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
