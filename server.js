@@ -21,25 +21,36 @@ app.get("/api/:date", function (req,res) {
   const dateparam = req.params.date;
   let date;
   let unix;
+
   if(isValidDate(dateparam)){
     date = new Date(dateparam);
     unix = date.getTime();
   }else{
+
     if(isNaN(dateparam)){
-      console.log('err')
-      res.json({ error : "Invalid Date" });
-      return 
+      return res.json({ error : "Invalid Date" });
     }
+
     unix = dateparam;
     date = new Date(unix);
   }
-  const utc = `${weekdays.get(date.getDay())}, ${date.getDate()+1} ${months.get(date.getMonth())} ${date.getFullYear()} 00:00:00 GMT`;
+
+  const weekday = date.getDay();
+  const monthday = date.getDate()+1
+  const monthnumber = date.getMonth();
+  const year = date.getFullYear();
+
+  const utc = `${weekdays.get(weekday)}, ${monthday} ${months.get(monthnumber)} ${year} 00:00:00 GMT`;
   
-  res.json({unix: unix, utc:utc})
+  res.json({
+    unix: unix, 
+    utc:utc
+  })
+  
 })
 
 function isValidDate(date_string){
-  return moment(date_string, "DD-MM-YYYY", true).isValid();
+  return moment(date_string, "YYYY-MM-DD", true).isValid();
 }
 
 var listener = app.listen(5000, function () {
