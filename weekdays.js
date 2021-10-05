@@ -1,10 +1,10 @@
 const days = new Map();
-days.set(0,'Sun');
-days.set(1,'Mon');
-days.set(2,'Tue');
-days.set(3,'Wed');
-days.set(4,'Thu');
-days.set(5,'Fri');
-days.set(6,'Sat');
+days.set(0,'Mon');
+days.set(1,'Tue');
+days.set(2,'Wed');
+days.set(3,'Thu');
+days.set(4,'Fri');
+days.set(5,'Sat');
+days.set(6,'Sun');
 
 module.exports = days;
